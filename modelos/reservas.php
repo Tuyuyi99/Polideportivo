@@ -1,80 +1,68 @@
 <?php
-class incidencia
+include_once("DB.php");
+class Reservas
 {
 
     // Creamos un constructor donde iniciaremos nuestra conexión con la base de datos.
     private $db;
     public function __construct()
     {
-        $this->db = new mysqli("localhost", "pablodelacuesta", "P*blo99@", "incidencias");
+        $this->db = new DB();
     }
 
-    // Devuelve una incidencia a partir de la id. Si no existe, devuelve null.
-
-    public function get($id){
-        if ($result = $this->db->query("SELECT * FROM incidencia
-                                            WHERE idIncidencia = '$id'")) {
-            $result = $result->fetch_object();
-        } else {
-            $result = null;
-        }
+    // Devuelve una instalacion a partir de la id. Si no existe, devuelve null.
+    public function get($id)
+    {
+        $result = $this->db->consulta("SELECT * FROM reserva
+                                            WHERE idReserva = '$id'")
         return $result;
     }
 
 
-    // Devuelve toda la lista de incidencias. Si da algún error, devuelve null.
-    public function getAll(){
+    // Devuelve toda la lista de instalaciones. Si da algún error, devuelve null.
+    public function getAll()
+    {
         $arrayResult = array();
-        if ($result = $this->db->query("SELECT * FROM incidencia WHERE idUsuario = '".$_SESSION["idUsuario"]."' ORDER BY equipo")) {
-            while ($fila = $result->fetch_object()) {
-                $arrayResult[] = $fila;
-            }
-        } else {
-            $arrayResult = null;
-        }
+        $result = $this->db->consulta("SELECT * FROM reserva
+					                        ORDER BY fecha")
         return $arrayResult;
     }
 
-    public function getAllAdmin(){
-        $arrayResult = array();
-        if ($result = $this->db->query("SELECT * FROM incidencia ORDER BY equipo")) {
-            while ($fila = $result->fetch_object()) {
-                $arrayResult[] = $fila;
-            }
-        } else {
-            $arrayResult = null;
-        }
-        return $arrayResult;
-    }
+    //Inserta en la base de datos los datos de la instalacion
 
-    //Inserta en la base de datos los datos de la incidencia
+    public function insert($fecha, $hora, $precio)
+    {
+        $fecha = $_REQUEST["fecha"];
+        $hora = $_REQUEST["hora"];
+        $precio = $_REQUEST["precio"];
 
-    public function insert($equipo, $fecha, $lugar, $descripcion, $observaciones, $estado){
-        $idUsuario = $_SESSION["idUsuario"];
-        $this->db->query("INSERT INTO incidencia (equipo, fecha, lugar, descripcion, observaciones, estado, idUsuario) 
-                        VALUES ('$equipo', '$fecha', '$lugar', '$descripcion', '$observaciones', '$estado', '$idUsuario')");
-        return $this->db->affected_rows;
+        $result = $this->db->manipulacion("INSERT INTO reserva (fecha, hora, precio) 
+                        VALUES ('$fecha', '$hora', '$precio')");
+        return $result;
     }
 
     //Modifica los datos si alguna vez fuera necesario a partir de una id.
 
+    public function update($fecha, $hora, $precio)
+    {
+        $idReserva = $_REQUEST["idReserva"];
+        $fecha = $_REQUEST["fecha"];
+        $hora = $_REQUEST["hora"];
+        $precio = $_REQUEST["precio"];
 
-    public function update($idIncidencia, $equipo, $fecha, $lugar, $descripcion, $observaciones, $estado){
-        $this->db->query("UPDATE incidencia SET
-								equipo = '$equipo',
+        $result = $this->db->manipulacion("UPDATE reserva SET
 								fecha = '$fecha',
-								lugar = '$lugar',
-								descripcion = '$descripcion',
-								observaciones = '$observaciones',
-                                estado = '$estado'
-                                WHERE idIncidencia = '$idIncidencia'");
-        return $this->db->affected_rows;
+								hora = '$hora',
+								precio = '$precio',
+                                WHERE idReserva = '$idReserva'");
+        return $result
     }
     
-    //Elimina una incidencia a partir de su id.
+    //Elimina datos de una instalacion a partir de su id.
 
-    public function delete($idIncidencia){
-        $this->db->query("DELETE FROM incidencia WHERE idIncidencia = '$idIncidencia'");
+    public function delete($idReserva)
+    {
+        $this->db->manipulacion("DELETE FROM reserva WHERE idReserva = '$idReserva'");
         return $this->db->affected_rows;
     }
 

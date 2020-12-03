@@ -21,7 +21,7 @@ class Controlador
 	
 		$this->vista = new Vista();
 		$this->usuarios = new Usuario();
-		$this->instalaciones = new Incidencia();
+		$this->instalaciones = new Instalaciones();
 		$this->reservas = new Reservas();
     }
     
@@ -44,7 +44,7 @@ class Controlador
 		$this->showCalendario();
 		} else {
 			// Error al iniciar la sesión
-			$data['msjError'] = "Nombre de usuario o contraseña incorrectos";
+			$data['msjError'] = "Email o contraseña incorrectos";
 			$this->vista->show("usuarios/mostrarLogin", $data);
 		}
 	}
@@ -63,12 +63,15 @@ class Controlador
     
     public function procesarRegistro(){
 	
+		$email = $_REQUEST["email"];
+        $contrasenia = $_REQUEST["contrasenia"];
         $nombre = $_REQUEST["nombre"];
-        $apellidos = $_REQUEST["apellidos"];
-        $email = $_REQUEST["email"];
-		$contrasenia = $_REQUEST["contrasenia"];
+        $apellido1 = $_REQUEST["apellido1"];
+        $apellido2 = $_REQUEST["apellido2"];
+        $dni = $_REQUEST["dni"];
+        $imagen = $_REQUEST["imagen"]
 
-		$result = $this->usuarios->insert($nombre, $apellidos, $email, $contrasenia);
+		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen);
 
 		if ($result) { //Si es correcto, lo redireccionamos a showFormularioLogin.php.
             $data['msjInfo'] = "¡Enhorabuena, ya te has registrado!";
@@ -87,41 +90,38 @@ class Controlador
 	public function procesarReserva(){
 	
 
-		$equipo = $_REQUEST["equipo"];
 		$fecha = $_REQUEST["fecha"];
-		$lugar = $_REQUEST["lugar"];
-		$descripcion = $_REQUEST["descripcion"];
-		$observaciones = $_REQUEST["observaciones"];
-		$estado = $_REQUEST["estado"];
+        $hora = $_REQUEST["hora"];
+        $precio = $_REQUEST["precio"];
 		$idUsuario = $_SESSION["idUsuario"];
 
-		$result = $this->incidencias->insert($equipo, $fecha, $lugar, $descripcion, $observaciones, $estado, $idUsuario);
+		$result = $this->reservas->insert($fecha, $hora, $precio, $idUsuario);
 
-		if ($result) { //Si es correcto, lo redireccionamos a listaIncidencias.php.
-			$this->showListaIncidencias();
+		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php.
+			$this->showCalendario();
 		} else {
 			// Error al registrar la incidencia.
 			$data['msjError'] = "Parece que ha ocurrido un error. Inténtalo de nuevo más tarde.";
-			$data['listaIncidencias'] = $this->incidencias->getAll();
-			$this->vista->show("incidencias/listaIncidencias", $data);
+			$data['listaIncidencias'] = $this->reservas->getAll();
+			$this->vista->show("reservas/Calendario", $data);
 		}
 	}
 
 	public function borrarReserva(){
 		if (isset($_SESSION["idUsuario"])) {
-			$idIncidencia = $_REQUEST["idIncidencia"];
-			// Eliminamos la incidencia a partir de su id
-            $result = $this->incidencias->delete($idIncidencia);
+			$idReserva = $_REQUEST["idReserva"];
+			// Eliminamos la reserva a partir de su id
+            $result = $this->reservas->delete($idReserva);
             
             // Si no lo encuentra, lanzamos un mensaje de error. En caso contrario, lanzamos uno de información.
 			if ($result == 0) {
-				$data['msjError'] = "Ha ocurrido un error al borrar la incidencia. Por favor, inténtelo de nuevo";
+				$data['msjError'] = "Ha ocurrido un error al borrar la reserva. Por favor, inténtelo de nuevo";
 			} else {
-				$data['msjInfo'] = "incidencia borrado con éxito";
+				$data['msjInfo'] = "reserva borrado con éxito";
 			}
 			// Mostramos la lista de incidencias actualizada
-			$data['listaIncidencias'] = $this->incidencias->getAll();
-			$this->vista->show("incidencias/listaIncidencias", $data);
+			$data['Calendario'] = $this->reservas->getAll();
+			$this->vista->show("reservas/Calendario", $data);
 		} else {
 			$data['msjError'] = "No tienes permisos para hacer eso";
 			$this->vista->show("usuarios/formularioLogin", $data);
@@ -130,9 +130,9 @@ class Controlador
 	
 	public function showModificarReserva(){
 		if (isset($_SESSION["idUsuario"])) {
-			$idIncidencia = $_REQUEST["idIncidencia"];
-			$data['incidencias'] = $this->incidencias->get($idIncidencia);
-			$this->vista->show('incidencias/modificarIncidencias', $data);
+			$idReserva = $_REQUEST["idReserva"];
+			$data['reservas'] = $this->reservas->get($idReservas);
+			$this->vista->show('reservas/modificarReservas', $data);
 		} else {
 			$data['msjError'] = "No tienes permisos para hacer eso";
 			$this->vista->show("usuario/formularioLogin", $data);

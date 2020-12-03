@@ -1,5 +1,6 @@
 <?php
-class usuario
+include_once("DB.php");
+class Usuario
 {
 
     // Creamos un constructor donde iniciaremos nuestra conexión con la base de datos.
@@ -39,7 +40,7 @@ class usuario
         $apellido1 = $_REQUEST["apellido1"];
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
-        $imagen = $_REQUEST["imagen"]
+        $imagen = $_REQUEST["imagen"];
 
         $result = $this->db->consulta("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen) 
                         VALUES ('$email', '$contrasenia', '$nombre', '$apellido1', '$apellido2', '$dni', '$imagen')");
@@ -57,7 +58,7 @@ class usuario
         $apellido1 = $_REQUEST["apellido1"];
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
-        $imagen = $_REQUEST["imagen"]
+        $imagen = $_REQUEST["imagen"];
 
         $result = $this->db->manipulacion("UPDATE usuario SET
 								email = '$email',

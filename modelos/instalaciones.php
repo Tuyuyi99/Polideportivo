@@ -1,60 +1,71 @@
 <?php
-class usuario
+include_once("DB.php");
+class Instalaciones
 {
 
     // Creamos un constructor donde iniciaremos nuestra conexión con la base de datos.
     private $db;
     public function __construct()
     {
-        $this->db = new mysqli("localhost", "pablodelacuesta", "P*blo99@", "incidencias");
+        $this->db = new DB();
     }
 
-    // Devuelve un usuario a partir de la id. Si no existe, devuelve null.
+    // Devuelve una instalacion a partir de la id. Si no existe, devuelve null.
     public function get($id)
     {
-        $result = $this->db->consulta("SELECT * FROM usuario
-                                            WHERE idUsuario = '$id'")
+        $result = $this->db->consulta("SELECT * FROM instalacion
+                                            WHERE idInstalacion = '$id'")
         return $result;
     }
 
 
-    // Devuelve toda la lista de usuario. Si da algún error, devuelve null.
+    // Devuelve toda la lista de instalaciones. Si da algún error, devuelve null.
     public function getAll()
     {
         $arrayResult = array();
-        $result = $this->db->consulta("SELECT * FROM usuario
-					                        ORDER BY apellidos")
+        $result = $this->db->consulta("SELECT * FROM instalacion
+					                        ORDER BY nombre")
         return $arrayResult;
     }
 
-    //Inserta en la base de datos los datos del registro.
+    //Inserta en la base de datos los datos de la instalacion
 
-    public function insert($nombre, $apellidos, $email, $usuario, $contrasenia)
+    public function insert($nombre, $descripcion, $imagen, $precio)
     {
-        $result = $this->db->manipulacion("INSERT INTO usuario (nombre, apellidos, email, usuario, contrasenia) 
-                        VALUES ('$nombre', '$apellidos', '$email', '$usuario', '$contrasenia')");
+        $nombre = $_REQUEST["nombre"];
+        $descripcion = $_REQUEST["descripcion"];
+        $imagen = $_REQUEST["imagen"];
+        $precio = $_REQUEST["precio"];
+
+        $result = $this->db->manipulacion("INSERT INTO instalacion (nombre, descripcion, imagen, precio) 
+                        VALUES ('$nombre', '$descripcion', '$imagen', '$precio')");
         return $result;
     }
 
     //Modifica los datos si alguna vez fuera necesario a partir de una id.
 
-    public function update($nombre, $apellidos, $email, $usuario, $contrasenia)
+    public function update($nombre, $descripcion, $imagen, $precio)
     {
-        $result = $this->db->manipulacion("UPDATE usuario SET
+        $idInstalacion = $_REQUEST["idInstalacion"];
+        $nombre = $_REQUEST["nombre"];
+        $descripcion = $_REQUEST["descripcion"];
+        $imagen = $_REQUEST["imagen"];
+        $precio = $_REQUEST["precio"];
+
+        $result = $this->db->manipulacion("UPDATE instalacion SET
 								nombre = '$nombre',
-								apellidos = '$apellidos',
-								email = '$email',
-								usuario = '$usuario',
-								contrasenia = '$contrasenia'
-                                WHERE idUsuario = '$idUsuario'");
+								descripcion = '$descripcion',
+								imagen = '$imagen',
+								precio = '$precio',
+                                WHERE idInstalacion = '$idInstalacion'");
         return $result
     }
     
-    //Elimina datos de un usuario a partir de su id.
+    //Elimina datos de una instalacion a partir de su id.
 
-    public function delete($idUsuario)
+    public function delete($idInstalacion)
     {
-        $this->db->manipulacion("DELETE FROM usuario WHERE idUsuario = '$idUsuario'");
+        $this->db->manipulacion("DELETE FROM instalacion WHERE idInstalacion = '$idInstalacion'");
         return $this->db->affected_rows;
     }
 

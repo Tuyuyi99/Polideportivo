@@ -13,7 +13,7 @@ include_once("controlador.php");
 	if (isset($_REQUEST["action"])) {
 		$action = $_REQUEST["action"];
 	} else {
-		$action = "showListaIncidencias";  // Acción por defecto
+		$action = "showCalendario";  // Acción por defecto
 	}
 
 	// Ejecutamos el método llamado como la acción del controlador

@@ -62,6 +62,8 @@ class Controlador
 	}
     
     public function procesarRegistro(){
+
+
 	
 		$email = $_REQUEST["email"];
         $contrasenia = $_REQUEST["contrasenia"];
@@ -69,9 +71,12 @@ class Controlador
         $apellido1 = $_REQUEST["apellido1"];
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
-        $imagen = $_REQUEST["imagen"]
+		$imagen = $_REQUEST["imagen"]
 
-		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen);
+		$rutaImagen = "img/" . $imagen["name"];
+		move_uploaded_file($imagen["tmp_name"]);
+
+		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rutaImagen);
 
 		if ($result) { //Si es correcto, lo redireccionamos a showFormularioLogin.php.
             $data['msjInfo'] = "¡Enhorabuena, ya te has registrado!";

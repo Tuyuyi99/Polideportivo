@@ -173,11 +173,6 @@ class Controlador
 	}
 
 	public function showCalendario(){
-		if ((isset($_SESSION["rol"])) && ($_SESSION["rol"] == "usuario")){
-		$data['listaIncidencias'] = $this->incidencias->getAll();
-		} else {
-			$data['listaIncidencias'] = $this->incidencias->getAllAdmin();
-		}
-		$this->vista->show("incidencias/listaIncidencias", $data);
+		$this->vista->show("reservas/Calendario", $data);
 	}
 }

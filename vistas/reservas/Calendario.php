@@ -1,30 +1,56 @@
-<?php
-$diaSemana = date("w");
-if ($diaSemana == 0) $diaSemana = 7;
-$diaMes = date("j");
-$mes = date("n");
+<?php $month = date("n");
+    $year = date("Y");
+    $diaActual = date("j");
+    $diaSemana = date("w", mktime(0, 0, 0, $month, 1, $year)) + 7;
+    $ultimoDiaMes = date("d", (mktime(0, 0, 0, $month + 1, 1, $year) - 1));
 
-echo "Dia de la semana: $diaSemana, Dia del mes: $diaMes, Mes: $mes";
+    $meses = array(1 => "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    ?>
 
-$r = $diaMes % 7; 
-$r2 = $diaSemana - $r;
-if ($r2 < 1){
-	$r2 += 7;
-}
-echo "<table border='1'>";
-for ($semana = 1; $semana <= 6; $semana++){
-	echo "<tr>";
-	for ($diaS = 1; $diaS < 7; $diaS++){
-		if ($semana == 1 && $diaSemanaEmpiezaMes = $diaS){
-			$cont = 1;
-		}
-		if ($cont > 0){
-			echo "<td>$cont</td>";
-		}
-		}
-		echo "<td>-</td>";
+            <table id="calendar">
 
-	}
-	echo "</tr>";
-echo "</table>";
-?>
+                <caption><?php echo $meses[$month] . " " . $year ?></caption>
+                <tr>
+                    <th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th>
+                    <th>Vie</th><th>Sab</th><th>Dom</th>
+                </tr>
+                <tr bgcolor="silver">
+
+                    <?php
+                    $last_cell = $diaSemana + $ultimoDiaMes;
+
+                    for ($i = 1; $i <= 42; $i++) {
+
+                        if ($i == $diaSemana) {
+
+                            $day = 1;
+                        }
+
+                        if ($i < $diaSemana || $i >= $last_cell) {
+
+
+                            echo "<td>&nbsp;</td>";
+                        } else {
+
+
+                            if ($day == $diaActual)
+                                echo "<td class='hoy'><a href = '../../Controlador/controlador.php?dia=''' class='btn btn-light' name = 'dia' id = 'dia' > ".$day."</a></td>";
+
+                            else
+                                echo "<td>$day</td>";
+
+                            $day++;
+                        }
+
+
+                        if ($i % 7 == 0) {
+
+                            echo "</tr><tr>\n";
+                        }
+                    }
+                    ?>
+
+                </tr>
+
+            </table>

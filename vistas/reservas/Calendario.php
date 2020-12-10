@@ -1,33 +1,33 @@
 <?php 
 
-$month = date("n");
-    $mesSiguiente = $month+1;
+$mes = date("n");
+    $mesSiguiente = $mes+1;
     if ($mesSiguiente == 13) {$mesSiguiente=1;}
-    $year = date("Y");
-    $yearSiguiente = $year;
-    if ($mesSiguiente == 1) {$yearSiguiente+=1;}
+    $anio = date("Y");
+    $anioSiguiente = $anio;
+    if ($mesSiguiente == 1) {$anioSiguiente+=1;}
     $diaActual = date("j");
-    $diaSemana = date("w", mktime(0, 0, 0, $month, 1, $year)) + 7;
-    $diaSemanaMesSiguiente = date("w", mktime(0, 0, 0, $mesSiguiente, 1, $yearSiguiente)) + 7;
-    $ultimoDiaMes = date("d", (mktime(0, 0, 0, $month + 1, 1, $year) - 1));
-    $ultimoDiaMesSiguiente = date("d", (mktime(0, 0, 0, $mesSiguiente + 1, 1, $yearSiguiente) - 1));
-    $ultimoDiaMesSiguiente = date("d", (mktime(0, 0, 0, $mesSiguiente + 1, 1, $yearSiguiente) - 1));
+    $diaSemana = date("w", mktime(0, 0, 0, $mes, 1, $anio)) + 7;
+    $diaSemanaMesSiguiente = date("w", mktime(0, 0, 0, $mesSiguiente, 1, $anioSiguiente)) + 7;
+    $ultimoDiaMes = date("d", (mktime(0, 0, 0, $mes + 1, 1, $anio) - 1));
+    $ultimoDiaMesSiguiente = date("d", (mktime(0, 0, 0, $mesSiguiente + 1, 1, $anioSiguiente) - 1));
+    $ultimoDiaMesSiguiente = date("d", (mktime(0, 0, 0, $mesSiguiente + 1, 1, $anioSiguiente) - 1));
 
     $meses = array('', "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
         "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
-    $monthString = $meses[$month];
+    $mesString = $meses[$mes];
     $mesSiguienteString = $meses[$mesSiguiente];
     
 
 
     echo '<div id="contenedor">';
-    echo '<div id="mes1" style="display:none">'.$month.'</div>';
+    echo '<div id="mes1" style="display:none">'.$mes.'</div>';
     echo '<div id="mes2" style="display:none">'.$mesSiguiente.'</div>';
     echo '<table id="calendarios">
     <tr><td>';
     echo '<table id="calendar1">
-        <div class="fechaCalendar1">'.$monthString.' '.$year.'</div>
+        <div class="fechaCalendar1">'.$mesString.' '.$anio.'</div>
         <tr>
             <th>L</th><th>M</th><th>X</th><th>J</th>
             <th>V</th><th>S</th><th>D</th>
@@ -54,19 +54,19 @@ $month = date("n");
                         foreach($data['listaReservas'] as $reserva) {
                             $diaFecha = substr($reserva->fecha, -2);
                             $mesFecha = substr($reserva->fecha, 6,7);
-                            if (strlen($month) == 1) {
-                                $month = '0'.$month;
+                            if (strlen($mes) == 1) {
+                                $mes = '0'.$mes;
                             }
                             if (strlen($dia) == 1) {
                                 $dia = '0'.$dia;
                             }
-                            if ($dia == substr($reserva->fecha, -2) && $month == substr($reserva->fecha, 5,2) && !in_array(substr($reserva->fecha, -2), $reservasEscritas)) {
+                            if ($dia == substr($reserva->fecha, -2) && $mes == substr($reserva->fecha, 5,2) && !in_array(substr($reserva->fecha, -2), $reservasEscritas)) {
                                 $reservasEscritas[] = substr($reserva->fecha, -2);
-                                echo '<div class="diaConReserva" onmouseover="mostrar_reservas_en_calendario_mes1('.$dia.','.$month.')">';
+                                echo '<div class="diaConReserva" onmouseover="mostrar_reservas_en_calendario_mes1('.$dia.','.$mes.')">';
                             }
                         }
                     }
-                    echo '<a href="index.php?action=mostrarReservas&idUsuario='.$_SESSION['idUsuario'].'&dia='.$dia.'&mes='.$month.'">'.$dia.'</div></td>';
+                    echo '<a href="index.php?action=mostrarReservas&idUsuario='.$_SESSION['idUsuario'].'&dia='.$dia.'&mes='.$mes.'">'.$dia.'</div></td>';
 
                     
                     $dia++;
@@ -85,7 +85,7 @@ $month = date("n");
     echo '
     <td>
     <table id="calendar2">
-        <div class="fechaCalendar2">'.$mesSiguienteString.' '.$yearSiguiente.'</div>
+        <div class="fechaCalendar2">'.$mesSiguienteString.' '.$anioSiguiente.'</div>
         <tr>
             <th>L</th><th>M</th><th>X</th><th>J</th>
             <th>V</th><th>S</th><th>D</th>

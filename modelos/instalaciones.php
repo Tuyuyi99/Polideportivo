@@ -22,10 +22,10 @@ class Instalaciones
     // Devuelve toda la lista de instalaciones. Si da algún error, devuelve null.
     public function getAll()
     {
-        $arrayResult = array();
+        $result = array();
         $result = $this->db->consulta("SELECT * FROM instalacion
 					                        ORDER BY nombre");
-        return $arrayResult;
+        return $result;
     }
 
     //Inserta en la base de datos los datos de la instalacion
@@ -64,7 +64,7 @@ class Instalaciones
     //Elimina datos de una instalacion a partir de su id.
 
     public function delete($idInstalacion)
-    {
+    {       
         $this->db->manipulacion("DELETE FROM instalacion WHERE idInstalacion = '$idInstalacion'");
         return $this->db->affected_rows;
     }

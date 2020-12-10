@@ -22,10 +22,10 @@ class Reservas
     // Devuelve toda la lista de instalaciones. Si da algún error, devuelve null.
     public function getAll()
     {
-        $arrayResult = array();
+        $result = array();
         $result = $this->db->consulta("SELECT * FROM reserva
 					                        ORDER BY fecha");
-        return $arrayResult;
+        return $result;
     }
 
     public function getSelected($idUsuario) {

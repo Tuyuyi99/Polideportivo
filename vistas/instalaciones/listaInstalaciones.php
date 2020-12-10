@@ -14,24 +14,23 @@
     }
         echo '<table id="tablaInstalaciones">';
 
-    foreach($data['listaInstalaciones'] as $instalacion) {
+    foreach($data['listaInstalaciones'] as $instalaciones) {
         if ($contador % 2 == 0) {
             echo '<tr>';
         }
         echo '<td>
-                <p>'.$instalacion->nombre.' (<strong>'.$instalacion->precio.'€/hora</strong>)</p>
+                <p>'.$instalaciones->nombre.' (<strong>'.$instalaciones->precio.'€/hora</strong>)</p>
                 <table>
                 <tr><td>
-                <img src="imgs/instalaciones/'.$instalacion->imagen.'.png"<br></td>
-                <td class="celdaModificarInstalacion'.$instalacion->idInstalacion.'">
+                <img src="imagenes//instalaciones/'.$instalaciones->imagen.'" width="100" height="100""<br></td>
                 <table>
                 <tr>
-                <a href="index.php?action=modificarInstalacion&idInstalacion='.$instalacion->idInstalacion.'">
-                <button class="botonModificarInstalacion">Modificar</button>
+                <a href="index.php?action=showModificarInstalacion&idInstalacion='.$instalaciones->idInstalacion.'">
+                <button>Modificar</button>
                 </a>
                 </tr>
                 <tr>
-                <a href="index.php?action=confirmarBorrarInstalacion&idInstalacion='.$instalacion->idInstalacion.'">
+                <a href="index.php?action=confirmarEliminarInstalacion&idInstalacion='.$instalaciones->idInstalacion.'">
                 <button>Eliminar instalacion</button>
                 </a>
                 </tr>

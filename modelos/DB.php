@@ -25,7 +25,6 @@ class DB {
         }
         return $arrayResult;
     }
-
     public function manipulacion($sql) {
         $this->db->query($sql);
         return $this->db->affected_rows;

@@ -203,9 +203,9 @@ class Controlador
 		$nombre = $_REQUEST["nombre"];
         $descripcion = $_REQUEST["descripcion"];
         $imagen = $_REQUEST["imagen"];
-		$precio = $_SESSION["precio"];
+		$precio = $_REQUEST["precio"];
 
-		$result = $this->reservas->insert($nombre, $descripcion, $imagen, $precio);
+		$result = $this->instalaciones->insert($nombre, $descripcion, $imagen, $precio);
 
 		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php.
 			$this->showCalendario();
@@ -214,6 +214,66 @@ class Controlador
 			$data['msjError'] = "Parece que ha ocurrido un error. Inténtalo de nuevo más tarde.";
 			$data['listaIncidencias'] = $this->reservas->getAll();
 			$this->vista->show("reservas/Calendario", $data);
+		}
+	}
+
+	public function showModificarInstalacion(){
+		if (isset($_SESSION["idUsuario"])) {
+			$idInstalacion = $_REQUEST["idInstalacion"];
+			$data['instalaciones'] = $this->instalaciones->get($idInstalacion);
+			$this->vista->show('instalaciones/modificarInstalaciones', $data);
+		} else {
+			$data['msjError'] = "No tienes permisos para hacer eso";
+			$this->vista->show("usuario/formularioLogin", $data);
+		}
+	}
+
+	public function modificarInstalacion(){
+		if (isset($_SESSION["idUsuario"])) {
+
+			$idInstalacion = $_REQUEST["idInstalacion"];
+			$nombre = $_REQUEST["nombre"];
+        	$descripcion = $_REQUEST["descripcion"];
+        	$imagen = $_REQUEST["imagen"];
+			$precio = $_REQUEST["precio"];
+
+			// Lanzamos el UPDATE contra la base de datos.
+			$result = $this->instalaciones->update($idInstalacion, $nombre, $descripcion, $imagen, $precio);
+
+			if ($result != 1) {
+				// Si la modificación de instalaciones ha fallado, mostramos un mensaje de error.
+				$data['msjError'] = "Ha ocurrido un error al modificar la incidencia. Por favor, inténtelo más tarde.";
+			}
+			$data['listaIncidencias'] = $this->instalaciones->getAll();
+			$this->vista->show("instalaciones/listaInstalaciones", $data);
+		} else {
+			$data['msjError'] = "No tienes permisos para hacer eso";
+			$this->vista->show("usuarios/mostrarLogin", $data);
+		}
+
+	}
+
+	public function confirmarEliminarInstalacion(){
+		$idInstalacion = $_REQUEST['idInstalacion'];
+		echo '<script>
+			var opcion = confirm("¿Quieres eliminar la instalación?");
+			if (opcion) {
+				location.href="index.php?action=borrarInstalacion&idInstalacion='.$idInstalacion.'";
+					location.href="index.php?action=mostrarListaInstalaciones"
+				}else{
+					location.href="index.php?action=mostrarListaInstalaciones"
+				}
+		</script>';
+	}
+
+	public function borrarInstalacion(){
+		$idInstalacion = $_REQUEST['idInstalacion'];
+		$result = $this->instalaciones->delete($idInstalacion);
+
+		if ($result == 1) {
+			$data['msjInfo'] = 'Instalación borrada con éxito';
+		} else {
+			$data['msjError'] = 'No se ha podido eliminar la instalación. Por favor inténtelo de nuevo más tarde';
 		}
 	}
 }

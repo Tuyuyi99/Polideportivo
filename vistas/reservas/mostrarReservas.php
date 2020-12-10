@@ -1,5 +1,14 @@
-
 <?php
+
+include_once("modelos/seguridad.php");
+include_once("modelos/reservas.php");
+
+private $instalaciones, $reservas, $seguridad;
+
+public function __construct(){
+    $this->reservas = new Reservas();
+    $this->seguridad = new Seguridad();
+}
 
 if ($this->seguridad->haySesionIniciada()) {
     echo "<p>Hola, ".$_SESSION['nombre']."</p>";

@@ -14,7 +14,7 @@ include_once("modelos/seguridad.php");
 class Controlador
 {
 
-    private $vista, $usuarios, $instalaciones, $reservas;
+    private $vista, $usuarios, $instalaciones, $reservas, $seguridad;
     
     //Colocamos un constructor con los diferentes modelos antes inicializados.
 
@@ -177,12 +177,9 @@ class Controlador
 
 
 	
-	public function showCalendario(){
-		if($this->seguridad->haySesionIniciada())
-		{
+	public function showCalendario(){	
 			$data['mostrarReservas'] = $this->reservas->getAll();
 			$this->vista->show("reservas/mostrarReservas", $data);
-		}
-
+		
 	}
 }

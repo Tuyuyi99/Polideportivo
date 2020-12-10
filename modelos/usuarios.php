@@ -42,7 +42,7 @@ class Usuario
         $dni = $_REQUEST["dni"];
         $imagen = $_REQUEST["imagen"];
         $rol = $_REQUEST["rol"];
-
+        
         $result = $this->db->manipulacion("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen, rol) 
                         VALUES ('$email', '$contrasenia', '$nombre', '$apellido1', '$apellido2', '$dni', '$imagen', '$rol')");
         return $result;

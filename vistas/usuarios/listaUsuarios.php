@@ -26,11 +26,8 @@
             echo '<td>'.$usuarios->apellido1.''.$usuarios->apellido2.'</td>';
             echo '<td>'.$usuarios->email.'</td>';
             echo '<td>'.$usuarios->dni.'</td>';
-            echo '<td><a href="#">Ampliar imagen</a></td>';
-            echo '<td><a href="index.php?action=modificarUsuario&idUsuario='.$usuarios->idUsuario.'">
-                    <img class="botonModificar" src="imgs/button-edit.png" id="buttonEdit" alt="Modificar usuario" title="Modificar usuario"></a></td>';
-            echo '<td class="celdaEliminar"><a href="index.php?action=confirmacionBorrarUsuario&idUsuario='.$usuarios->idUsuario.'">
-                    <img class="botonCancelar"src="imgs/button-cancelar.png" id="botonBorrar" alt="Eliminar usuario" title="Eliminar usuario"></a></td>';
+            echo '<td><a href="index.php?action=modificarUsuario&idUsuario='.$usuarios->idUsuario.'">';
+            echo '<td><a href="index.php?action=confirmacionBorrarUsuario&idUsuario='.$usuarios->idUsuario.'">';
             echo '</tr><tr class="filaEspacio"><td></td></tr>';
         }
         echo '</tbody>';

@@ -6,6 +6,7 @@ include_once("vista.php");
 include_once("modelos/usuarios.php");
 include_once("modelos/instalaciones.php");
 include_once("modelos/reservas.php");
+include_once("modelos/seguridad.php");
 
 // Creamos los objetos vista y modelos
 
@@ -23,6 +24,7 @@ class Controlador
 		$this->usuarios = new Usuario();
 		$this->instalaciones = new Instalaciones();
 		$this->reservas = new Reservas();
+		$this->seguridad = new Seguridad();
     }
     
     //Muestra el formulario de login
@@ -71,7 +73,7 @@ class Controlador
         $apellido1 = $_REQUEST["apellido1"];
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
-		$imagen = $_REQUEST["imagen"]
+		$imagen = $_REQUEST["imagen"];
 
 		$rutaImagen = "img/" . $imagen["name"];
 		move_uploaded_file($imagen["tmp_name"]);
@@ -172,7 +174,15 @@ class Controlador
 
 	}
 
+
+
+	
 	public function showCalendario(){
-		$this->vista->show("reservas/Calendario", $data);
+		if($this->seguridad->haySesionIniciada())
+		{
+			$data['mostrarReservas'] = $this->reservas->getAll();
+			$this->vista->show("reservas/mostrarReservas", $data);
+		}
+
 	}
 }

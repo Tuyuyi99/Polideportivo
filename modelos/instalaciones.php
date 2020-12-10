@@ -14,7 +14,7 @@ class Instalaciones
     public function get($id)
     {
         $result = $this->db->consulta("SELECT * FROM instalacion
-                                            WHERE idInstalacion = '$id'")
+                                            WHERE idInstalacion = '$id'");
         return $result;
     }
 
@@ -24,7 +24,7 @@ class Instalaciones
     {
         $arrayResult = array();
         $result = $this->db->consulta("SELECT * FROM instalacion
-					                        ORDER BY nombre")
+					                        ORDER BY nombre");
         return $arrayResult;
     }
 
@@ -58,7 +58,7 @@ class Instalaciones
 								imagen = '$imagen',
 								precio = '$precio',
                                 WHERE idInstalacion = '$idInstalacion'");
-        return $result
+        return $result;
     }
     
     //Elimina datos de una instalacion a partir de su id.

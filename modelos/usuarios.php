@@ -32,7 +32,7 @@ class Usuario
 
     //Inserta en la base de datos los datos del registro.
 
-    public function insert($nombre, $apellidos, $email, $usuario, $contrasenia)
+    public function insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rol)
     {
         $email = $_REQUEST["email"];
         $contrasenia = $_REQUEST["contrasenia"];
@@ -41,17 +41,18 @@ class Usuario
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
         $imagen = $_REQUEST["imagen"];
+        $rol = $_REQUEST["rol"];
 
-        $result = $this->db->consulta("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen) 
-                        VALUES ('$email', '$contrasenia', '$nombre', '$apellido1', '$apellido2', '$dni', '$imagen')");
+        $result = $this->db->consulta("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen, rol) 
+                        VALUES ('$email', '$contrasenia', '$nombre', '$apellido1', '$apellido2', '$dni', '$imagen', '$rol')");
         return $result;
     }
 
     //Modifica los datos si alguna vez fuera necesario a partir de una id.
 
-    public function update($nombre, $apellidos, $email, $usuario, $contrasenia)
+    public function update($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rol)
     {
-        $idUsuario = $_REQUEST["idUsuario"]
+        $idUsuario = $_REQUEST["idUsuario"];
         $email = $_REQUEST["email"];
         $contrasenia = $_REQUEST["contrasenia"];
         $nombre = $_REQUEST["nombre"];
@@ -59,6 +60,7 @@ class Usuario
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
         $imagen = $_REQUEST["imagen"];
+        $rol = $_REQUEST["rol"];
 
         $result = $this->db->manipulacion("UPDATE usuario SET
 								email = '$email',
@@ -68,6 +70,7 @@ class Usuario
                                 apellido2 = '$apellido2'
                                 dni = '$dni'
                                 imagen = '$imagen'
+                                rol = '$rol'
                                 WHERE idUsuario = '$idUsuario'");
         return $result;
     }
@@ -89,5 +92,10 @@ class Usuario
         else  
             return 0;
 
+        }
+
+        public function buscarUsuario($email,$contrasenia) {
+            $result = $this->db->consulta("SELECT * FROM usuario WHERE email='$email' AND contrasenia='$contrasenia'");
+            return $result;
         }
     }

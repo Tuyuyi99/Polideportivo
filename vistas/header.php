@@ -2,7 +2,6 @@
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<link rel="stylesheet" type="text/css" href="estilos/estilos.css">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Polideportivo</title>
 </head>

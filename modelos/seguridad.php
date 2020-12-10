@@ -5,6 +5,7 @@
             $_SESSION["idUsuario"] = $usuario->idUsuario;
             $_SESSION["email"] = $usuario->email;
             $_SESSION["imagen"] = $usuario->imagen;
+            $_SESSION["rol"] = $usuario->rol;
         }
 
         public function cerrarSesion() {
@@ -21,10 +22,5 @@
             } else {
                 return false;
             }
-        }
-
-        public function errorAccesoNoPermitido() {
-			$data['msjError'] = "No tienes permisos para hacer eso";
-			$this->vista->show("usuario/formularioLogin", $data);
         }
     }

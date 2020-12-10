@@ -74,11 +74,9 @@ class Controlador
         $apellido2 = $_REQUEST["apellido2"];
         $dni = $_REQUEST["dni"];
 		$imagen = $_REQUEST["imagen"];
-
-		$rutaImagen = "img/" . $imagen["name"];
-		move_uploaded_file($imagen["tmp_name"]);
-
-		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rutaImagen);
+		$rol = $_REQUEST["rol"];
+		
+		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rol);
 
 		if ($result) { //Si es correcto, lo redireccionamos a showFormularioLogin.php.
             $data['msjInfo'] = "¡Enhorabuena, ya te has registrado!";
@@ -90,9 +88,10 @@ class Controlador
 		}
 	}
 
-	public function showInsertarIncidencias(){
-		$this->vista->show("incidencias/insertarIncidencias");
+	public function showInsertarReserva(){
+		$this->vista->show("reservas/insertarReserva");
 	}
+
 
 	public function procesarReserva(){
 	

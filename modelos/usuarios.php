@@ -85,7 +85,7 @@ class Usuario
 
     //Buscamos un usuario a partir de su id y su nombre. Si lo encuentra, devolvemos true. Si no lo encuentra, devolvemos un false.
 
-    public function existeNombre($nombreUsuario) {
+    public function existeNombre($email) {
         $result = $this->db->consulta("SELECT * FROM usuario WHERE email = '$email'");
         if ($result != null)
             return 1;

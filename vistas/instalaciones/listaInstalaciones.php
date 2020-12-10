@@ -23,7 +23,7 @@
                 <table>
                 <tr><td>
                 <img src="imgs/instalaciones/'.$instalacion->imagen.'.png"<br></td>
-                <td class="celdaModificarInstalacion'.$instalacion->idInstalacion'">
+                <td class="celdaModificarInstalacion'.$instalacion->idInstalacion.'">
                 <table>
                 <tr>
                 <a href="index.php?action=formModificarInstalacion&idInstalacion='.$instalacion->idInstalacion.'">

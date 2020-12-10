@@ -16,6 +16,6 @@
     <input type="time" name="hora"/><br>
   <label for="precio">Precio:</label>
     <input type="text" name="precio"/>
-    <input type='hidden' name='action' value='procesarReserva'>
+    <input type='hidden' name='action&idUsuario' value='procesarReserva'>
     <input type='submit'>
 </form>

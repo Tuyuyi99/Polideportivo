@@ -8,7 +8,7 @@
         "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
 
-            echo "<p><a href='index.php?action=insertarReserva'>Nueva Reserva</a></p>";
+            echo "<p><a href='index.php?action=showInsertarReserva&idUsuario'>Nueva Reserva</a></p>";
 
 
     ?>

@@ -10,6 +10,8 @@
 	}
 ?>
 
+<a href='index.php?action=mostrarRegistro'>Registrarse</a></p>
+
 <form action='index.php'>
 <label for="email">Email:</label>	
 	<input type='text' name='email'/>

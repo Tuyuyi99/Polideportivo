@@ -75,7 +75,7 @@ class Controlador
         $dni = $_REQUEST["dni"];
 		$imagen = $_REQUEST["imagen"];
 		$rol = $_REQUEST["rol"];
-		
+
 		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rol);
 
 		if ($result) { //Si es correcto, lo redireccionamos a showFormularioLogin.php.
@@ -137,7 +137,7 @@ class Controlador
 	public function showModificarReserva(){
 		if (isset($_SESSION["idUsuario"])) {
 			$idReserva = $_REQUEST["idReserva"];
-			$data['reservas'] = $this->reservas->get($idReservas);
+			$data['reservas'] = $this->reservas->get($idReserva);
 			$this->vista->show('reservas/modificarReservas', $data);
 		} else {
 			$data['msjError'] = "No tienes permisos para hacer eso";

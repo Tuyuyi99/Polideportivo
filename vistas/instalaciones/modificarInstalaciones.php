@@ -13,4 +13,4 @@
             <input type="hidden" name="action" value="modificarInstalacion">
             <input type="hidden" name="idInstalacion" value="'.$instalaciones->idInstalacion.'">
             <input type="submit">
-        </form>
+        </form>';

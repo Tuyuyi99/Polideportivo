@@ -17,17 +17,13 @@ class DB {
     public function consulta($sql) {
         $arrayResult = array();
         if ($result = $this->db->query($sql)) {
-            while($fila = $result->fetch_object()) {
+            while ($fila = $result->fetch_object()) {
                 $arrayResult[] = $fila;
             }
         } else {
             $arrayResult = null;
         }
-        if (count($arrayResult) == 1) {
-            $arrayResult = $arrayResult[0];
-        }
         return $arrayResult;
-        
     }
 
     public function manipulacion($sql) {

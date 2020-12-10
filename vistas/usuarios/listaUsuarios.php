@@ -21,17 +21,17 @@
         echo '</tr>';
         echo '</thead>';
         echo '<tbody';
-        foreach($data['listaUsuarios'] as $usuario) {
+        foreach($data['listaUsuarios'] as $usuarios) {
             echo '<tr>';
-            echo '<td>'.$usuario->idUsuario.'</td>';
-            echo '<td>'.$usuario->nombre.'</td>';
-            echo '<td>'.$usuario->apellido1.''.$usuario->apellido2.'</td>';
-            echo '<td>'.$usuario->email.'</td>';
-            echo '<td>'.$usuario->dni.'</td>';
+            echo '<td>'.$usuarios->idUsuario.'</td>';
+            echo '<td>'.$usuarios->nombre.'</td>';
+            echo '<td>'.$usuarios->apellido1.''.$usuarios->apellido2.'</td>';
+            echo '<td>'.$usuarios->email.'</td>';
+            echo '<td>'.$usuarios->dni.'</td>';
             echo '<td><a href="#">Ampliar imagen</a></td>';
-            echo '<td><a href="index.php?action=formModificarUsuario&idUsuario='.$usuario->idUsuario.'">
+            echo '<td><a href="index.php?action=modificarUsuario&idUsuario='.$usuarios->idUsuario.'">
                     <img class="botonModificar" src="imgs/button-edit.png" id="buttonEdit" alt="Modificar usuario" title="Modificar usuario"></a></td>';
-            echo '<td class="celdaEliminar"><a href="index.php?action=confirmacionBorrarUsuario&idUsuario='.$usuario->idUsuario.'">
+            echo '<td class="celdaEliminar"><a href="index.php?action=confirmacionBorrarUsuario&idUsuario='.$usuarios->idUsuario.'">
                     <img class="botonCancelar"src="imgs/button-cancelar.png" id="botonBorrar" alt="Eliminar usuario" title="Eliminar usuario"></a></td>';
             echo '</tr><tr class="filaEspacio"><td></td></tr>';
         }

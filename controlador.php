@@ -66,8 +66,6 @@ class Controlador
     
     public function procesarRegistro(){
 
-
-	
 		$email = $_REQUEST["email"];
         $contrasenia = $_REQUEST["contrasenia"];
         $nombre = $_REQUEST["nombre"];

@@ -173,13 +173,10 @@ class Controlador
 		}
 
 	}
-
-
-
 	
-	public function showCalendario(){	
+	public function showCalendario(){
 			$data['mostrarReservas'] = $this->reservas->getAll();
-			$this->vista->show("reservas/mostrarReservas", $data);
+			$this->vista->show("reservas/calendario", $data);
 		
 	}
 }

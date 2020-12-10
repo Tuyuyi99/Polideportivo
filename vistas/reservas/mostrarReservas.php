@@ -1,18 +1,28 @@
+
+
+<script>
+$(document).ready(function() {
+    $(".btnBorrar").click(function() {
+        $.get("index.php?action=borrarReservaAjax&id=" + this.id, null, function(idBorrada) {
+
+            if (idBorrada == -1) {
+                $('#msjError').html("Ha ocurrido un error al borrar la reserva");
+            }
+            else {
+                $('#msjInfo').html("Reserva borrada con éxito");
+                $('#reserva' + idBorrada).remove();
+            }
+        });
+    });
+});
+</script>
+
 <?php
 
 include_once("modelos/seguridad.php");
-include_once("modelos/reservas.php");
 
-private $instalaciones, $reservas, $seguridad;
+    $seguridad;
 
-public function __construct(){
-    $this->reservas = new Reservas();
-    $this->seguridad = new Seguridad();
-}
-
-if ($this->seguridad->haySesionIniciada()) {
-    echo "<p>Hola, ".$_SESSION['nombre']."</p>";
-}
 
 if (isset($data['msjError'])) {
     echo "<p style='color:red'>".$data['msjError']."</p>";
@@ -22,16 +32,15 @@ if (isset($data['msjInfo'])) {
 }
 
 
-if ($this->seguridad->haySesionIniciada()){
+
     echo "<form action='index.php'>
             <input type='hidden' name='action' value='buscarReserva'>
             Buscar:
             <input type='text' name='textoBusqueda' placeholder='Fecha, Hora o Precio' size='35'>
             <input type='submit' value='Buscar'>
         </form><br>";
-}
 
-if ($this->seguridad->haySesionIniciada()) {
+
     echo "<form action = 'index.php' method = 'get'>
         Ordenar por: 
         <select name='rolBusqueda'>
@@ -41,9 +50,8 @@ if ($this->seguridad->haySesionIniciada()) {
         </select>
         <input type='hidden' name='action' value='rolBusquedaReserva'>
         <input type='submit' value='Ordenar'>";
-}
+
 echo"<br>";
-var_dump($data);
 
 if (count($data['listaReservas']) > 0) {
 
@@ -105,9 +113,8 @@ if (count($data['listaReservas']) > 0) {
 
                 }
                 
-                if ($this->seguridad->haySesionIniciada()) {
+               
                     echo "<p><a href='index.php?action=formularioInsertarReserva'>Nuevo</a></p>";
-                }
                 echo "</td>";
                 if($cont%7 == 0){echo "</tr><tr>";}
                 $cont++;
@@ -122,9 +129,5 @@ else {
 }
 
 
-if ($this->seguridad->haySesionIniciada()) {
+
     echo "<p><a href='index.php?action=cerrarSesion'>Cerrar sesion</a></p>";
-}
-else {
-    echo "<p><a href='index.php?action=mostrarLogin'>Iniciar sesion</a></p>";
-}

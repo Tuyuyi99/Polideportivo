@@ -43,6 +43,7 @@ class Controlador
 		$result = $this->usuarios->buscarUsuario($email, $contrasenia);
 
 		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php
+		$this->seguridad->abrirSesion($result);
 		$this->showCalendario();
 		} else {
 			// Error al iniciar la sesión
@@ -178,4 +179,15 @@ class Controlador
 			$this->vista->show("reservas/calendario", $data);
 		
 	}
+	
+	public function mostrarListaUsuarios(){
+		if ((isset($_SESSION["rol"])) && ($_SESSION["rol"] == "administrador")){
+			$data['listaUsuarios'] = $this->usuarios->getAll();
+				$this->vista->show("usuarios/listaUsuarios",$data);
+		}else {
+			$data['msjError'] = "No tienes permisos para hacer eso";
+			$this->vista->show("usuarios/mostrarLogin", $data);
+		}
+		
+	}	
 }

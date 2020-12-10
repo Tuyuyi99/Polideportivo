@@ -1,7 +1,3 @@
-<header>
-    <div class="logo">
-        <img src="imgs/logo-sin-imagen.png">
-    </div>
 <?php
 
 include_once("modelos/seguridad.php");
@@ -12,7 +8,7 @@ include_once("modelos/seguridad.php");
             <ul>
                 <li><a href="index.php?action=mostrarListaUsuarios">Usuarios</a></li>
                 <li><a href="index.php?action=mostrarListaInstalaciones">Instalaciones</a></li>
-                <li><a href="index.php?action=mostrarCalendario">Reservas</a></li>
+                <li><a href="index.php?action=mostrarListaReservas">Reservas</a></li>
             </ul>
         </nav>
     </section>';

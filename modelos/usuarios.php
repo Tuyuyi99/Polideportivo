@@ -24,10 +24,10 @@ class Usuario
     // Devuelve toda la lista de usuario. Si da algún error, devuelve null.
     public function getAll()
     {
-        $arrayResult = array();
+        $result = array();
         $result = $this->db->consulta("SELECT * FROM usuario
 					                        ORDER BY apellido1");
-        return $arrayResult;
+        return $result;
     }
 
     //Inserta en la base de datos los datos del registro.
@@ -43,7 +43,7 @@ class Usuario
         $imagen = $_REQUEST["imagen"];
         $rol = $_REQUEST["rol"];
 
-        $result = $this->db->consulta("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen, rol) 
+        $result = $this->db->manipulacion("INSERT INTO usuario (email, contrasenia, nombre, apellido1, apellido2, dni, imagen, rol) 
                         VALUES ('$email', '$contrasenia', '$nombre', '$apellido1', '$apellido2', '$dni', '$imagen', '$rol')");
         return $result;
     }

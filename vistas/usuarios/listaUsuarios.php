@@ -10,7 +10,6 @@
     echo '<table id="tablaUsuarios">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>ID</th>';
         echo '<th>Nombre</th>';
         echo '<th>Apellidos</th>';
         echo '<th>Email</th>';
@@ -23,7 +22,6 @@
         echo '<tbody';
         foreach($data['listaUsuarios'] as $usuarios) {
             echo '<tr>';
-            echo '<td>'.$usuarios->idUsuario.'</td>';
             echo '<td>'.$usuarios->nombre.'</td>';
             echo '<td>'.$usuarios->apellido1.''.$usuarios->apellido2.'</td>';
             echo '<td>'.$usuarios->email.'</td>';

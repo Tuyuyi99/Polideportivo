@@ -77,7 +77,7 @@ class Controlador
 
 		$result = $this->usuarios->insert($email, $contrasenia, $nombre, $apellido1, $apellido2, $dni, $imagen, $rol);
 
-		if ($result) { //Si es correcto, lo redireccionamos a showFormularioLogin.php.
+		if ($result) { //Si es correcto, lo redireccionamos a mostrarLogin.php.
             $data['msjInfo'] = "¡Enhorabuena, ya te has registrado!";
 			$this->vista->show("usuarios/mostrarLogin", $data);
 		} else {
@@ -187,5 +187,33 @@ class Controlador
 			$this->vista->show("usuarios/mostrarLogin", $data);
 		}
 		
-	}	
+	}
+	
+	public function mostrarListaInstalaciones(){
+		$data['listaInstalaciones'] = $this->instalaciones->getAll();
+				$this->vista->show("instalaciones/listaInstalaciones",$data);
+	
+	}
+
+	public function mostrarInsertarInstalaciones(){
+		$this->vista->show("instalaciones/insertarInstalaciones");
+	}
+
+	public function insertarInstalacion(){
+		$nombre = $_REQUEST["nombre"];
+        $descripcion = $_REQUEST["descripcion"];
+        $imagen = $_REQUEST["imagen"];
+		$precio = $_SESSION["precio"];
+
+		$result = $this->reservas->insert($nombre, $descripcion, $imagen, $precio);
+
+		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php.
+			$this->showCalendario();
+		} else {
+			// Error al registrar la incidencia.
+			$data['msjError'] = "Parece que ha ocurrido un error. Inténtalo de nuevo más tarde.";
+			$data['listaIncidencias'] = $this->reservas->getAll();
+			$this->vista->show("reservas/Calendario", $data);
+		}
+	}
 }

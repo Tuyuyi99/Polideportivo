@@ -1,22 +1,3 @@
-
-
-<script>
-$(document).ready(function() {
-    $(".btnBorrar").click(function() {
-        $.get("index.php?action=borrarReservaAjax&id=" + this.id, null, function(idBorrada) {
-
-            if (idBorrada == -1) {
-                $('#msjError').html("Ha ocurrido un error al borrar la reserva");
-            }
-            else {
-                $('#msjInfo').html("Reserva borrada con éxito");
-                $('#reserva' + idBorrada).remove();
-            }
-        });
-    });
-});
-</script>
-
 <?php
 
 include_once("modelos/seguridad.php");

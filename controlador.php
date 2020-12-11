@@ -43,7 +43,6 @@ class Controlador
 		$result = $this->usuarios->buscarUsuario($email, $contrasenia);
 
 		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php
-		$this->seguridad->abrirSesion($result);
 		$this->showCalendario();
 		} else {
 			// Error al iniciar la sesión
@@ -207,13 +206,13 @@ class Controlador
 
 		$result = $this->instalaciones->insert($nombre, $descripcion, $imagen, $precio);
 
-		if ($result) { //Si es correcto, lo redireccionamos a Calendario.php.
-			$this->showCalendario();
+		if ($result) { //Si es correcto, lo redireccionamos a mostrarListaInstalaciones.php.
+			$this->mostrarListaInstalaciones();
 		} else {
-			// Error al registrar la incidencia.
+			// Error al registrar la instalacion.
 			$data['msjError'] = "Parece que ha ocurrido un error. Inténtalo de nuevo más tarde.";
-			$data['listaIncidencias'] = $this->reservas->getAll();
-			$this->vista->show("reservas/Calendario", $data);
+			$data['listaInstalaciones'] = $this->instalaciones->getAll();
+			$this->vista->show("instalaciones/listaInstalaciones", $data);
 		}
 	}
 

@@ -2,7 +2,6 @@
 
 include_once("modelos/seguridad.php");
 
-    if ($_SESSION['rol'] == 'administrador') {
         echo '<section class="wrapper">
         <nav>
             <ul>
@@ -12,7 +11,6 @@ include_once("modelos/seguridad.php");
             </ul>
         </nav>
     </section>';
-    }
     
 ?>
 </header>

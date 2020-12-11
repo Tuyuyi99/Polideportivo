@@ -13,10 +13,10 @@
 
     ?>
 
-            <table id="calendar">
+            <table id="calendar" style="text-align:center">
 
-                <caption><?php echo $meses[$month] . " " . $year ?></caption>
-                <tr>
+                <caption style="text-align:center"><?php echo $meses[$month] . " " . $year ?></caption>
+                <tr bgcolor='white'>
                     <th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th>
                     <th>Vie</th><th>Sab</th><th>Dom</th>
                 </tr>
@@ -36,15 +36,15 @@
                         if ($i < $diaSemana || $i >= $last_cell) {
 
                             // celca vacia
-                            echo "<td>&nbsp;</td>";
+                            echo "<td bgcolor='white'>&nbsp;</td>";
                         } else {
 
                             // mostramos el dia
                             if ($day == $diaActual)
-                                echo "<td class='hoy'><a href = '../../Controlador/controlador.php?dia=''' class='btn btn-light' name = 'dia' id = 'dia' > ".$day."</a></td>";
+                                echo "<td class='hoy' bgcolor='white'><a href = '../../Controlador/controlador.php?dia=''' class='btn btn-light' name = 'dia' id = 'dia' > ".$day."</a></td>";
 
                             else
-                                echo "<td>$day</td>";
+                                echo "<td bgcolor='white'>$day</td>";
 
                             $day++;
                         }

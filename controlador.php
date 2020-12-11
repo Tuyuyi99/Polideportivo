@@ -107,8 +107,8 @@ class Controlador
 		} else {
 			// Error al registrar la incidencia.
 			$data['msjError'] = "Parece que ha ocurrido un error. Inténtalo de nuevo más tarde.";
-			$data['calendario'] = $this->reservas->getAll();
-			$this->vista->show("reservas/calendario", $data);
+			$data['listaIncidencias'] = $this->reservas->getAll();
+			$this->vista->show("reservas/Calendario", $data);
 		}
 	}
 
@@ -125,8 +125,8 @@ class Controlador
 				$data['msjInfo'] = "reserva borrado con éxito";
 			}
 			// Mostramos la lista de incidencias actualizada
-			$data['calendario'] = $this->reservas->getAll();
-			$this->vista->show("reservas/calendario", $data);
+			$data['Calendario'] = $this->reservas->getAll();
+			$this->vista->show("reservas/Calendario", $data);
 		} else {
 			$data['msjError'] = "No tienes permisos para hacer eso";
 			$this->vista->show("usuarios/formularioLogin", $data);
@@ -148,20 +148,23 @@ class Controlador
 
 		if (isset($_SESSION["idUsuario"])) {
 
-			$idReserva = $_REQUEST["idReserva"];
+			$idIncidencia = $_REQUEST["idIncidencia"];
+			$equipo = $_REQUEST["equipo"];
 			$fecha = $_REQUEST["fecha"];
-			$hora = $_REQUEST["hora"];
-			$precio = $_REQUEST["descripcion"];
+			$lugar = $_REQUEST["lugar"];
+			$descripcion = $_REQUEST["descripcion"];
+			$observaciones = $_REQUEST["observaciones"];
+			$estado = $_REQUEST["estado"];
 
 			// Lanzamos el UPDATE contra la base de datos.
-			$result = $this->reservas->update($idReserva, $fecha, $hora, $precio);
+			$result = $this->incidencias->update($idIncidencia, $equipo, $fecha, $lugar, $descripcion, $observaciones, $estado);
 
 			if ($result != 1) {
-				// Si la modificación de reservas ha fallado, mostramos un mensaje de error.
-				$data['msjError'] = "Ha ocurrido un error al modificar la reserva. Por favor, inténtelo más tarde.";
+				// Si la modificación de incidencias ha fallado, mostramos un mensaje de error.
+				$data['msjError'] = "Ha ocurrido un error al modificar la incidencia. Por favor, inténtelo más tarde.";
 			}
-			$data['calendario'] = $this->reservas->getAll();
-			$this->vista->show("reservas/calendario", $data);
+			$data['listaIncidencias'] = $this->incidencias->getAll();
+			$this->vista->show("incidencias/listaIncidencias", $data);
 		} else {
 			$data['msjError'] = "No tienes permisos para hacer eso";
 			$this->vista->show("usuarios/mostrarLogin", $data);
@@ -272,5 +275,9 @@ class Controlador
 		} else {
 			$data['msjError'] = 'No se ha podido eliminar la instalación. Por favor inténtelo de nuevo más tarde';
 		}
+	}
+
+	public function mostrarListaReservas(){
+		$this->vista->show("reservas/mostrarReservas");
 	}
 }
